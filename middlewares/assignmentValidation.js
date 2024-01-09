@@ -15,10 +15,6 @@ export const validateAssignmentData = (req, res, next) => {
         return res.json({
           message: `Categories must be an array with at least 1 value`,
         });
-    } else {
-      return res.json({
-        message: `Save successfully`,
-      });
-    }
+    } 
     next();
 }
