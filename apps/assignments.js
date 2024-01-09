@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import { assignments as assignmentsFromFile } from "../data/assignments.js";
 import { comments as commentsFromFile } from "../data/comments.js";
+import validateData from "../middlewares/validateAssignmentData.js";
 
 let assignments = [...assignmentsFromFile];
 let comments = [...commentsFromFile];
@@ -45,7 +46,7 @@ assignmentRouter.post("/", (req, res) => {
   });
 });
 
-assignmentRouter.put("/:id", (req, res) => {
+assignmentRouter.put("/:id", validateData, (req, res) => {
   const updateAssignment = req.body;
   const assignmentId = +req.params.id;
 
@@ -103,7 +104,7 @@ assignmentRouter.get("/:id/comments", (req, res) => {
   });
 });
 
-assignmentRouter.post("/:id/comments", (req, res) => {
+assignmentRouter.post("/:id/comments", validateData, (req, res) => {
   const assignmentId = +req.params.id;
   const newComment = req.body;
   const commentId = comments[comments.length - 1].id + 1;
